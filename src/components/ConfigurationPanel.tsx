@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { FormData } from '../types';
+import TemplateUpload from './TemplateUpload';
 
 interface ConfigurationPanelProps {
   formData: FormData;
@@ -9,6 +10,11 @@ interface ConfigurationPanelProps {
 }
 
 const ConfigurationPanel = ({ formData, onFormDataChange, onGenerate }: ConfigurationPanelProps) => {
+  const handleTemplateUpload = (template: File) => {
+    console.log('Template uploaded:', template.name);
+    // TODO: Process template file and extract placeholders
+  };
+
   return (
     <div className="panel">
       <h2 className="text-2xl mb-6 text-white tracking-[3px]">CONFIGURATION</h2>
@@ -79,6 +85,8 @@ const ConfigurationPanel = ({ formData, onFormDataChange, onGenerate }: Configur
             className="form-input resize-vertical"
           />
         </div>
+
+        <TemplateUpload onTemplateUpload={handleTemplateUpload} />
       </div>
     </div>
   );

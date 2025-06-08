@@ -1,7 +1,7 @@
-
 import React from 'react';
-import { Download, Loader2 } from 'lucide-react';
+import { Download, Loader2, Upload } from 'lucide-react';
 import jsPDF from 'jspdf';
+import { Document, Packer, Paragraph, TextRun, HeadingLevel } from 'docx';
 
 interface OutputPanelProps {
   content: string;
@@ -54,6 +54,95 @@ const OutputPanel = ({ content, isLoading }: OutputPanelProps) => {
     doc.save('lab-sheet.pdf');
   };
 
+  const downloadLabSheetWord = async () => {
+    if (!content) return;
+
+    try {
+      // Split content into sections for better formatting
+      const sections = content.split(/\n(?=\d+\.\s)/);
+      const paragraphs: Paragraph[] = [];
+
+      // Add main title
+      paragraphs.push(
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Laboratory Sheet",
+              bold: true,
+              size: 32,
+            }),
+          ],
+          heading: HeadingLevel.TITLE,
+          spacing: { after: 400 },
+        })
+      );
+
+      // Process each section
+      sections.forEach((section) => {
+        const lines = section.trim().split('\n');
+        
+        lines.forEach((line, index) => {
+          if (line.trim()) {
+            // Check if it's a section header (starts with number)
+            const isHeader = /^\d+\.\s/.test(line.trim());
+            
+            if (isHeader) {
+              paragraphs.push(
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: line.trim(),
+                      bold: true,
+                      size: 24,
+                    }),
+                  ],
+                  heading: HeadingLevel.HEADING_1,
+                  spacing: { before: 300, after: 200 },
+                })
+              );
+            } else {
+              paragraphs.push(
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: line.trim(),
+                      size: 22,
+                    }),
+                  ],
+                  spacing: { after: 100 },
+                })
+              );
+            }
+          }
+        });
+      });
+
+      // Create the document
+      const doc = new Document({
+        sections: [
+          {
+            properties: {},
+            children: paragraphs,
+          },
+        ],
+      });
+
+      // Generate and download the document
+      const blob = await Packer.toBlob(doc);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'lab-sheet.docx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error generating Word document:', error);
+      alert('Error generating Word document. Please try again.');
+    }
+  };
+
   return (
     <div className="panel col-span-1 lg:col-span-2">
       <h2 className="text-2xl mb-6 text-white tracking-[3px]">GENERATED LAB SHEET</h2>
@@ -78,13 +167,20 @@ Enter your API key above and configure your lab sheet parameters to get started!
           </div>
           
           {content && (
-            <div className="flex gap-4 mt-5">
+            <div className="flex flex-wrap gap-4 mt-5">
               <button
                 onClick={downloadLabSheetPDF}
                 className="btn-primary flex items-center gap-2"
               >
                 <Download size={16} />
                 DOWNLOAD PDF
+              </button>
+              <button
+                onClick={downloadLabSheetWord}
+                className="btn-primary flex items-center gap-2"
+              >
+                <Download size={16} />
+                DOWNLOAD WORD
               </button>
               <button
                 onClick={downloadLabSheet}
