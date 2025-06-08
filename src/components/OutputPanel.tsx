@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Download, Loader2 } from 'lucide-react';
+import jsPDF from 'jspdf';
 
 interface OutputPanelProps {
   content: string;
@@ -18,6 +19,39 @@ const OutputPanel = ({ content, isLoading }: OutputPanelProps) => {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  };
+
+  const downloadLabSheetPDF = () => {
+    if (!content) return;
+
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.width;
+    const margin = 20;
+    const maxWidth = pageWidth - 2 * margin;
+    
+    // Add title
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text("Laboratory Sheet", margin, 30);
+    
+    // Add content
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    
+    // Split content into lines and handle page breaks
+    const lines = doc.splitTextToSize(content, maxWidth);
+    let y = 50;
+    
+    lines.forEach((line: string) => {
+      if (y > doc.internal.pageSize.height - margin) {
+        doc.addPage();
+        y = margin;
+      }
+      doc.text(line, margin, y);
+      y += 5;
+    });
+    
+    doc.save('lab-sheet.pdf');
   };
 
   return (
@@ -44,13 +78,22 @@ Enter your API key above and configure your lab sheet parameters to get started!
           </div>
           
           {content && (
-            <button
-              onClick={downloadLabSheet}
-              className="btn-primary mt-5 flex items-center gap-2"
-            >
-              <Download size={16} />
-              DOWNLOAD PDF
-            </button>
+            <div className="flex gap-4 mt-5">
+              <button
+                onClick={downloadLabSheetPDF}
+                className="btn-primary flex items-center gap-2"
+              >
+                <Download size={16} />
+                DOWNLOAD PDF
+              </button>
+              <button
+                onClick={downloadLabSheet}
+                className="btn-secondary flex items-center gap-2"
+              >
+                <Download size={16} />
+                DOWNLOAD TXT
+              </button>
+            </div>
           )}
         </>
       )}
