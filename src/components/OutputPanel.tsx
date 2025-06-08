@@ -1,5 +1,6 @@
 import React from 'react';
-import { Download, Loader2, Upload } from 'lucide-react';
+import { Download, Loader2, Edit } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel } from 'docx';
 
@@ -9,6 +10,8 @@ interface OutputPanelProps {
 }
 
 const OutputPanel = ({ content, isLoading }: OutputPanelProps) => {
+  const navigate = useNavigate();
+
   const downloadLabSheet = () => {
     const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
@@ -143,6 +146,10 @@ const OutputPanel = ({ content, isLoading }: OutputPanelProps) => {
     }
   };
 
+  const openInEditor = () => {
+    navigate('/editor', { state: { content } });
+  };
+
   return (
     <div className="panel col-span-1 lg:col-span-2">
       <h2 className="text-2xl mb-6 text-white tracking-[3px]">GENERATED LAB SHEET</h2>
@@ -168,6 +175,13 @@ Enter your API key above and configure your lab sheet parameters to get started!
           
           {content && (
             <div className="flex flex-wrap gap-4 mt-5">
+              <button
+                onClick={openInEditor}
+                className="btn-primary flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400"
+              >
+                <Edit size={16} />
+                OPEN IN EDITOR
+              </button>
               <button
                 onClick={downloadLabSheetPDF}
                 className="btn-primary flex items-center gap-2"
