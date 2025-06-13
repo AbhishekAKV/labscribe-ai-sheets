@@ -1,17 +1,14 @@
-# LabScribe AI Sheets
-
-![LabScribe AI Sheets](https://lovable.dev/opengraph-image-p98pqg.png)
-
 ## 📝 Overview
 
 LabScribe AI Sheets is an AI-powered laboratory documentation generator that streamlines the process of creating professional lab reports. It combines neural network technology with a modern user interface to automate and standardize laboratory documentation.
+The objective of this project is to develop a web-based application that generates structured and professionally formatted labsheets based on user-provided experimental data and findings. This tool is not intended to bypass or undermine the academic effort required from students, but rather to assist in organizing, formatting, and presenting their work in a consistent and polished manner. By allowing students to input their experiment-specific results, observations, and discussions, the application ensures that each labsheet remains unique to the individual's effort and understanding. Ultimately, this project aims to enhance academic productivity by reducing the time spent on formatting, while maintaining full integrity and ownership of the student's original work.
 
 ## �� Project Objectives
 
 - Automate laboratory documentation generation
 - Standardize lab report formats
 - Enhance scientific writing efficiency
-- Integrate AI-powered content generation
+- Integrate AI-powered content generation based on the experimentatal data input fields
 - Provide flexible export options (PDF/Word)
 - Ensure consistent documentation across institutions
 
@@ -19,7 +16,7 @@ LabScribe AI Sheets is an AI-powered laboratory documentation generator that str
 
 ### Core Features
 - Real-time document editing
-- AI-powered content generation
+- AI-powered content generation based on the experimentatal data input fields
 - Multiple export formats (PDF/Word)
 - Professional formatting tools
 - Template management
@@ -145,9 +142,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Special thanks to the open-source community
 - Inspired by the need for standardized laboratory documentation
 
-## 📞 Support
-
-For support, email support@labscribe.com or open an issue in the repository.
 
 ## 🔄 Updates
 
@@ -163,14 +157,6 @@ For support, email support@labscribe.com or open an issue in the repository.
 - Cloud storage integration
 - Mobile responsiveness
 
-## 📚 Documentation
-
-For detailed documentation, visit our [Wiki](https://github.com/yourusername/labscribe-ai-sheets/wiki).
-
-## 🐛 Known Issues
-
-- List any known issues here
-- Include workarounds if available
 
 ## 🔍 Troubleshooting
 
@@ -194,11 +180,6 @@ Common issues and their solutions:
 - Document generation: < 5 seconds
 - Export processing: < 3 seconds
 
-## 🔒 Security
-
-- All API keys are stored securely
-- No sensitive data is stored locally
-- Regular security updates
 
 ## 🌐 Browser Support
 
@@ -207,18 +188,6 @@ Common issues and their solutions:
 - Safari (latest)
 - Edge (latest)
 
-## 📱 Mobile Support
-
-- Responsive design
-- Touch-friendly interface
-- Optimized for tablets
-
-## 🎨 Customization
-
-### Themes
-- Dark mode (default)
-- Light mode
-- Custom themes
 
 ### Templates
 - Academic
