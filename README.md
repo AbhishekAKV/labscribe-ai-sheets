@@ -108,14 +108,6 @@ npm run build
    - Choose between PDF or Word format
    - Download your document
 
-## 🔧 Configuration
-
-### Environment Variables
-Create a `.env` file in the root directory:
-```env
-VITE_API_KEY=your_api_key
-VITE_MODEL=command
-```
 
 ### Custom Templates
 Templates can be customized in the `src/templates` directory.
@@ -128,13 +120,7 @@ Templates can be customized in the `src/templates` directory.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Authors
-
-- Your Name - Initial work - [YourGitHub](https://github.com/yourusername)
 
 ## 🙏 Acknowledgments
 
